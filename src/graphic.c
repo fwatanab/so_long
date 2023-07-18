@@ -6,7 +6,7 @@
 /*   By: fwatanab <fwatanab@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:24:18 by fwatanab          #+#    #+#             */
-/*   Updated: 2023/07/15 17:38:15 by fwatanab         ###   ########.fr       */
+/*   Updated: 2023/07/18 21:57:18 by fwatanab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,8 @@ int	put_window(char **argv)
 	vars.mlx = mlx_init();
 	vars.mlx_win = mlx_new_window(vars.mlx, vars.map_x, vars.map_y, "so_long");
 	create_map(vars, argv);
-	import_map(argv, vars);
-	mlx_key_hook(vars.mlx_win, key_hook, &vars);
-//	mlx_loop_hook(vars.mlx_win, key_hook, &vars);
+	vars = import_map(argv, vars);
+	hook(&vars);
 	mlx_loop(vars.mlx);
 	return (0);
 }

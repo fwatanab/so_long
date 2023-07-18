@@ -56,7 +56,7 @@ void	error(void);
 void	error_map(int fd);
 size_t	my_strnlen(const char *str);
 void	checker_map(char **argv, t_vars vars);
-int		key_hook(int keycode, t_vars vars);
+void	hook(t_vars *vars);
 
 //utils
 char	*my_strjoin(char const *s1, char const *s2);

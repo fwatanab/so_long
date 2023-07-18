@@ -7,7 +7,7 @@ SRCS = main.c graphic.c create_map.c error.c checker_map.c key_hook.c so_long_ut
 OBJS	= $(addprefix $(SRCSDIR), $(SRCS:.c=.o))
 
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g
 RM		= rm -f
 MLXFRAGS = -lX11 -lXext -lm
 

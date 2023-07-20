@@ -6,7 +6,7 @@
 /*   By: fwatanab <fwatanab@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:24:18 by fwatanab          #+#    #+#             */
-/*   Updated: 2023/07/18 21:57:18 by fwatanab         ###   ########.fr       */
+/*   Updated: 2023/07/20 19:01:06 by fwatanab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,28 +53,56 @@ static t_vars	map_size(char **argv)
 	return (vars);
 }
 
+//static t_vars	import_map(char **argv, t_vars vars)
+//{
+//	int		fd;
+//	char	*line;
+//	int		tmp;
+//
+//	fd = open(argv[1], O_RDONLY);
+//	if (fd == -1)
+//		error();
+//	tmp = vars.map_y / 40;
+//	while (tmp--) 
+//	{
+//		if (tmp == vars.map_y / 40 - 1)
+//			vars.map = get_next_line(fd);
+//		else
+//		{
+//			line = get_next_line(fd);
+//			vars.map = my_strjoin(vars.map, line);
+//		}
+//		if (!vars.map)
+//		{
+//			free(vars.map);
+//			error_map(fd);
+//		}
+//	}
+//	close(fd);
+//	return (vars);
+//}
+
 static t_vars	import_map(char **argv, t_vars vars)
 {
 	int		fd;
-	char	*line;
 	int		tmp;
+	int		i;
 
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		error();
 	tmp = vars.map_y / 40;
-	while (tmp--) { if (tmp == vars.map_y / 40 - 1)
-			vars.map = get_next_line(fd);
-		else
-		{
-			line = get_next_line(fd);
-			vars.map = my_strjoin(vars.map, line);
-		}
-		if (!vars.map)
-		{
-			free(vars.map);
+	i = 0;
+	vars.map = (char **)malloc(sizeof(char *));
+	if (!vars.map)
+		error_map(fd);
+	while (tmp--)
+	{
+		vars.map[i] = (char *)malloc(sizeof(char) * (vars.map_x / 40 + 1));
+		if (!vars.map[i])
 			error_map(fd);
-		}
+		vars.map[i] = get_next_line(fd);
+		i++;
 	}
 	close(fd);
 	return (vars);

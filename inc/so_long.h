@@ -2,9 +2,9 @@
 # define SO_LONG_H
 
 # include "../libft/libft.h"
-# include "../minilibx/mlx.h"
-# include "../minilibx/mlx_int.h"
-//# include <mlx.h>
+//# include "../minilibx/mlx.h"
+//# include "../minilibx/mlx_int.h"
+# include <mlx.h>
 # include <fcntl.h>
 
 //map_image
@@ -32,6 +32,12 @@
 # define S 1
 # define D 2
 
+typedef struct s_player
+{
+	int	p_x;
+	int	p_y;
+}	t_player;
+
 typedef struct s_data
 {
 	void	*img;
@@ -47,7 +53,7 @@ typedef struct s_vars
 	void	*mlx_win;
 	int		map_x;
 	int		map_y;
-	char	*map;
+	char	**map;
 }	t_vars;
 
 int		put_window(char **argv);

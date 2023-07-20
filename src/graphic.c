@@ -57,28 +57,26 @@ static t_vars	import_map(char **argv, t_vars vars)
 {
 	int		fd;
 	char	*line;
-	char	*str;
 	int		tmp;
 
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		error();
 	tmp = vars.map_y / 40;
-	while (tmp--)
-	{
-		if (tmp == vars.map_y / 40 - 1)
-			str = get_next_line(fd);
+	while (tmp--) { if (tmp == vars.map_y / 40 - 1)
+			vars.map = get_next_line(fd);
 		else
 		{
 			line = get_next_line(fd);
-			str = my_strjoin(str, line);
+			vars.map = my_strjoin(vars.map, line);
 		}
-		if (!str)
+		if (!vars.map)
+		{
+			free(vars.map);
 			error_map(fd);
+		}
 	}
 	close(fd);
-	vars.map = str;
-	free(str);
 	return (vars);
 }
 

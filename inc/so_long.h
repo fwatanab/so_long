@@ -2,9 +2,9 @@
 # define SO_LONG_H
 
 # include "../libft/libft.h"
-//# include "../minilibx/mlx.h"
-//# include "../minilibx/mlx_int.h"
-# include <mlx.h>
+# include "../minilibx/mlx.h"
+# include "../minilibx/mlx_int.h"
+//# include <mlx.h>
 # include <fcntl.h>
 
 //map_image
@@ -60,5 +60,6 @@ void	hook(t_vars *vars);
 
 //utils
 char	*my_strjoin(char const *s1, char const *s2);
+size_t	my_strchrlen(const char *s, int c);
 
 #endif

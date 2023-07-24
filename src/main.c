@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   graphic.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fwatanab <fwatanab@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:24:18 by fwatanab          #+#    #+#             */
-/*   Updated: 2023/07/20 19:01:06 by fwatanab         ###   ########.fr       */
+/*   Updated: 2023/07/24 17:32:19 by fwatanab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
-static char	*set_null(char *str)
+static t_vars	set_null(t_vars vars)
 {
-	size_t	i;
+	int	tmp;
+	int	i;
+	int	j;
 
+	tmp = vars.map_y / 40;
 	i = 0;
-	while (str[i] && str[i] != '\n')
+	while (tmp--)
+	{
+		j = 0;
+		while (vars.map[i][j] && vars.map[i][j] != '\n')
+			j++;
+		if (vars.map[i][j] == '\n')
+			vars.map[i][j] = '\0';
 		i++;
-	if (str[i] == '\n')
-		str[i] = '\0';
-	return (str);
+	}
+	vars.map[i] = NULL;
+	return (vars);
 }
 
 static t_vars	map_size(char **argv)
@@ -64,7 +73,7 @@ static t_vars	import_map(char **argv, t_vars vars)
 		error();
 	tmp = vars.map_y / 40;
 	i = 0;
-	vars.map = (char **)malloc(sizeof(char *) * tmp);
+	vars.map = (char **)malloc(sizeof(char *) * (tmp + 1));
 	if (!vars.map)
 		error_map(fd);
 	while (tmp--)
@@ -76,7 +85,6 @@ static t_vars	import_map(char **argv, t_vars vars)
 			error_map(fd);
 		}
 		vars.map[i] = get_next_line(fd);
-		vars.map[i] = set_null(vars.map[i]);
 		i++;
 	}
 	close(fd);
@@ -92,11 +100,11 @@ int	main(int argc, char **argv)
 	vars = map_size(argv);
 	vars.mlx = mlx_init();
 	vars.mlx_win = mlx_new_window(vars.mlx, vars.map_x, vars.map_y, "so_long");
-	checker_map(argv, vars);
+	vars.c_count = checker_map(argv, vars);
 	vars = import_map(argv, vars);
+	vars = set_null(vars);
 	create_map(vars);
 	hook(&vars);
 	mlx_loop(vars.mlx);
-	all_free(vars.map);
 	return (0);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movement_player.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fwatanab <fwatanab@student.42.jp>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/24 16:59:33 by fwatanab          #+#    #+#             */
+/*   Updated: 2023/07/24 19:07:08 by fwatanab         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/so_long.h"
 
 static t_player	search_player(t_vars *vars)
@@ -24,59 +36,45 @@ static t_player	search_player(t_vars *vars)
 	return (player);
 }
 
-static void	move_left_right(t_vars *vars, char c)
+static int	check_move(t_vars *vars, int y, int x)
 {
-	t_player	player;
-
-	player = search_player(vars);
-	if (c == 'a')
+	if (vars->map[y][x] != '1')
 	{
-		if (vars->map[player.p_y][player.p_x - 1] != '1')
-		{
-			vars->map[player.p_y][player.p_x - 1] = 'P';
-			vars->map[player.p_y][player.p_x] = '0';
-		}
+		if (vars->c_count != 0 && vars->map[y][x] == 'E')
+			return (-1);
+		else if (vars->map[y][x] == 'E')
+			return (1);
+		else if (vars->map[y][x] == 'C')
+			vars->c_count--;
+		vars->map[y][x] = 'P';
+		return (0);
 	}
-	if (c == 'd')
-	{
-		if (vars->map[player.p_y][player.p_x + 1] != '1')
-		{
-			vars->map[player.p_y][player.p_x + 1] = 'P';
-			vars->map[player.p_y][player.p_x] = '0';
-		}
-	}
-}
-
-static void	move_up_down(t_vars *vars, char c)
-{
-	t_player	player;
-
-	player = search_player(vars);
-	if (c == 'w')
-	{
-		if (vars->map[player.p_y - 1][player.p_x] != '1')
-		{
-			vars->map[player.p_y - 1][player.p_x] = 'P';
-			vars->map[player.p_y][player.p_x] = '0';
-		}
-	}
-	if (c == 's')
-	{
-		if (vars->map[player.p_y + 1][player.p_x] != '1')
-		{
-			vars->map[player.p_y + 1][player.p_x] = 'P';
-			vars->map[player.p_y][player.p_x] = '0';
-		}
-	}
+	return (-1);
 }
 
 void	movement_player(t_vars *vars, char c)
 {
-	if (c == 'w' || c == 's')
-		move_up_down(vars, c);
-	else if (c == 'a' || c == 'd')
-		move_left_right(vars, c);
+	t_player	player;
+	int			r;
+
+	player = search_player(vars);
+	r = 0;
+	if (c == 'w')
+		r = check_move(vars, player.p_y - 1, player.p_x);
+	else if (c == 'a')
+		r = check_move(vars, player.p_y, player.p_x - 1);
+	else if (c == 's')
+		r = check_move(vars, player.p_y + 1, player.p_x);
+	else if (c == 'd')
+		r = check_move(vars, player.p_y, player.p_x + 1);
+	if (r == 0)
+		vars->map[player.p_y][player.p_x] = '0';
 	create_map(*vars);
 	vars->walk_count++;
 	ft_printf("%d歩目\n", vars->walk_count);
+	if (r == 1)
+	{
+		ft_printf("game clear\n");
+		close_window(vars);
+	}
 }

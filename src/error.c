@@ -6,7 +6,7 @@
 /*   By: fwatanab <fwatanab@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 14:30:20 by fwatanab          #+#    #+#             */
-/*   Updated: 2023/07/10 14:30:22 by fwatanab         ###   ########.fr       */
+/*   Updated: 2023/07/24 19:41:06 by fwatanab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	error_map(int fd)
 {
-	ft_printf("error\n");
+	ft_printf("Error\n");
 	close(fd);
-	exit(1);
+	exit(EXIT_FAILURE);
 }
 
 void	error(void)
 {
-	ft_printf("error\n");
-	exit(1);
+	ft_printf("Error\n");
+	exit(EXIT_FAILURE);
 }
 
 void	all_free(char **str)

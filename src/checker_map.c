@@ -6,7 +6,7 @@
 /*   By: fwatanab <fwatanab@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:28:00 by fwatanab          #+#    #+#             */
-/*   Updated: 2023/07/10 14:28:53 by fwatanab         ###   ########.fr       */
+/*   Updated: 2023/07/24 16:26:27 by fwatanab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	check_block(char **argv, t_vars vars)
 	close(fd);
 }
 
-void	checker_map(char **argv, t_vars vars)
+int	checker_map(char **argv, t_vars vars)
 {
 	int		fd;
 	char	*line;
@@ -99,4 +99,6 @@ void	checker_map(char **argv, t_vars vars)
 	if (p_size != 1 || c_size <= 0 || e_size != 1)
 		error_map(fd);
 	close(fd);
+	return ((int)c_size);
+	vars.c_count = c_size;
 }

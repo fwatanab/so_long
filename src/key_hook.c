@@ -7,6 +7,14 @@ void	close_window(t_vars *vars)
 	exit(0);
 }
 
+static int	mouse_hook(int mousecode)//, t_vars *vars)
+{
+	if (mousecode == 17)
+	{
+		ft_printf("==========\n");
+	}
+	return (0);
+}
 static int	key_hook(int keycode, t_vars *vars)
 {
 	if (keycode == ESC)
@@ -24,5 +32,6 @@ static int	key_hook(int keycode, t_vars *vars)
 void	hook(t_vars *vars)
 {
 	vars->walk_count = 0;
+	mlx_mouse_hook(vars->mlx_win, mouse_hook, vars);
 	mlx_key_hook(vars->mlx_win, key_hook, vars);
 }

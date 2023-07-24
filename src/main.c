@@ -1,21 +1,102 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   graphic.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fwatanab <fwatanab@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/10 14:29:31 by fwatanab          #+#    #+#             */
-/*   Updated: 2023/07/10 14:29:33 by fwatanab         ###   ########.fr       */
+/*   Created: 2023/07/08 14:24:18 by fwatanab          #+#    #+#             */
+/*   Updated: 2023/07/20 19:01:06 by fwatanab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
+static char	*set_null(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i] && str[i] != '\n')
+		i++;
+	if (str[i] == '\n')
+		str[i] = '\0';
+	return (str);
+}
+
+static t_vars	map_size(char **argv)
+{
+	t_vars	vars;
+	int		fd;
+	char	*line;
+	size_t	x_size;
+	size_t	y_size;
+
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+		error();
+	line = get_next_line(fd);
+	x_size = my_strnlen(line);
+	y_size = 0;
+	while (line)
+	{
+		if (my_strnlen(line) != x_size)
+			error_map(fd);
+		line = get_next_line(fd);
+		y_size++;
+	}
+	if (x_size == y_size)
+		error_map(fd);
+	vars.map_x = (int)x_size * 40;
+	vars.map_y = (int)y_size * 40;
+	close(fd);
+	return (vars);
+}
+
+static t_vars	import_map(char **argv, t_vars vars)
+{
+	int		fd;
+	int		tmp;
+	int		i;
+
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+		error();
+	tmp = vars.map_y / 40;
+	i = 0;
+	vars.map = (char **)malloc(sizeof(char *) * tmp);
+	if (!vars.map)
+		error_map(fd);
+	while (tmp--)
+	{
+		vars.map[i] = (char *)malloc(sizeof(char) * (vars.map_x / 40 + 1));
+		if (!vars.map[i])
+		{
+			all_free(vars.map);
+			error_map(fd);
+		}
+		vars.map[i] = get_next_line(fd);
+		vars.map[i] = set_null(vars.map[i]);
+		i++;
+	}
+	close(fd);
+	return (vars);
+}
+
 int	main(int argc, char **argv)
 {
+	t_vars	vars;
+
 	if (argc != 2)
 		error();
-	put_window(argv);
+	vars = map_size(argv);
+	vars.mlx = mlx_init();
+	vars.mlx_win = mlx_new_window(vars.mlx, vars.map_x, vars.map_y, "so_long");
+	checker_map(argv, vars);
+	vars = import_map(argv, vars);
+	create_map(vars);
+	hook(&vars);
+	mlx_loop(vars.mlx);
+	all_free(vars.map);
 	return (0);
 }

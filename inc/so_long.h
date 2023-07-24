@@ -2,9 +2,9 @@
 # define SO_LONG_H
 
 # include "../libft/libft.h"
-//# include "../minilibx/mlx.h"
-//# include "../minilibx/mlx_int.h"
-# include <mlx.h>
+# include "../minilibx/mlx.h"
+# include "../minilibx/mlx_int.h"
+//# include <mlx.h>
 # include <fcntl.h>
 
 //map_image
@@ -32,6 +32,8 @@
 # define S 1
 # define D 2
 
+# define WALK_COUNT 0
+
 typedef struct s_player
 {
 	int	p_x;
@@ -54,18 +56,20 @@ typedef struct s_vars
 	int		map_x;
 	int		map_y;
 	char	**map;
+	int		walk_count;
 }	t_vars;
 
 int		put_window(char **argv);
-void	create_map(t_vars vars, char **argv);
+void	create_map(t_vars vars);
 void	error(void);
 void	error_map(int fd);
-size_t	my_strnlen(const char *str);
+void	all_free(char **);
 void	checker_map(char **argv, t_vars vars);
 void	hook(t_vars *vars);
+void	movement_player(t_vars *vars, char c);
 
 //utils
-char	*my_strjoin(char const *s1, char const *s2);
+size_t	my_strnlen(const char *str);
 size_t	my_strchrlen(const char *s, int c);
 
 #endif

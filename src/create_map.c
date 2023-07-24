@@ -12,7 +12,7 @@
 
 #include "../inc/so_long.h"
 
-static t_data	*compare_map(t_vars vars, char c, int fd)
+static t_data	*compare_map(t_vars vars, char c)
 {
 	t_data	img;
 	int		img_x;
@@ -29,11 +29,14 @@ static t_data	*compare_map(t_vars vars, char c, int fd)
 	if (c == 'C')
 		img.img = mlx_xpm_file_to_image(vars.mlx, P_IMG_ITEM, &img_x, &img_y);
 	if (img.img == NULL)
-		error_map(fd);
+	{
+		all_free(vars.map);
+		error();
+	}
 	return (img.img);
 }
 
-static void	put_map(t_vars vars, char *line, size_t k, int fd)
+static void	put_map(t_vars vars, char *str, size_t k)
 {
 	t_data	img;
 	size_t	i;
@@ -41,9 +44,9 @@ static void	put_map(t_vars vars, char *line, size_t k, int fd)
 
 	i = 0;
 	j = 0;
-	while (line[i] && line[i] != '\n')
+	while (str[i])
 	{
-		img.img = compare_map(vars, line[i], fd);
+		img.img = compare_map(vars, str[i]);
 		img.addr = mlx_get_data_addr(img.img, &img.pixel, &img.len, &img.end);
 		mlx_put_image_to_window(vars.mlx, vars.mlx_win, img.img, j, k);
 		j += 40;
@@ -51,22 +54,19 @@ static void	put_map(t_vars vars, char *line, size_t k, int fd)
 	}
 }
 
-void	create_map(t_vars vars, char **argv)
+void	create_map(t_vars vars)
 {
-	int		fd;
-	char	*line;
+	int		tmp;
+	size_t	i;
 	size_t	k;
 
-	fd = open(argv[1], O_RDONLY);
-	if (fd == -1)
-		error();
-	line = get_next_line(fd);
+	i = 0;
 	k = 0;
-	while (line)
+	tmp = vars.map_y / 40;
+	while (tmp--)
 	{
-		put_map(vars, line, k, fd);
-		line = get_next_line(fd);
+		put_map(vars, vars.map[i], k);
+		i++;
 		k += 40;
 	}
-	close(fd);
 }

@@ -24,3 +24,16 @@ void	error(void)
 	ft_printf("error\n");
 	exit(1);
 }
+
+void	all_free(char **str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+}

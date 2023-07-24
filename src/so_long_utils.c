@@ -12,6 +12,18 @@
 
 #include "../inc/so_long.h"
 
+size_t	my_strnlen(const char *str)
+{
+	size_t	size;
+
+	if (!str)
+		error();
+	size = 0;
+	while (str[size] && str[size] != '\n')
+		size++;
+return (size);
+}
+
 size_t	my_strchrlen(const char *s, int c)
 {
 	size_t	i;
@@ -34,32 +46,3 @@ size_t	my_strchrlen(const char *s, int c)
 	return (0);
 }
 
-char	*my_strjoin(char const *s1, char const *s2)
-{
-	char	*str;
-	size_t	i;
-	size_t	j;
-
-	if (!s1)
-		s1 = ft_calloc(1, 1);
-	if (!s1 || !s2)
-		return (NULL);
-	str = (char *)malloc(sizeof(char)
-			* ((ft_strlen(s1) + ft_strlen(s2)) + 1));
-	if (str == NULL)
-		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	j = 0;
-	while (s2[j])
-	{
-		str[i + j] = s2[j];
-		j++;
-	}
-	str[i + j] = '\0';
-	return (str);
-}

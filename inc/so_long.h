@@ -2,9 +2,9 @@
 # define SO_LONG_H
 
 # include "../libft/libft.h"
-# include "../minilibx/mlx.h"
-# include "../minilibx/mlx_int.h"
-//# include <mlx.h>
+//# include "../minilibx/mlx.h"
+//# include "../minilibx/mlx_int.h"
+# include <mlx.h>
 # include <fcntl.h>
 
 //map_image
@@ -58,18 +58,22 @@ typedef struct s_vars
 	int		walk_count;
 }	t_vars;
 
-int		put_window(char **argv);
-int		create_map(t_vars vars);
-void	error(void);
-void	error_map(int fd);
-void	all_free(char **str);
-int		checker_map(char **argv, t_vars vars);
-void	hook(t_vars *vars);
-void	movement_player(t_vars *vars, char c);
-int		close_window(t_vars *vars);
+int			put_window(char **argv);
+int			create_map(t_vars vars);
+void		error(void);
+void		error_map(int fd);
+void		all_free(char **str);
+int			checker_map(char **argv, t_vars vars);
+void		map_search_all(char **argv, t_vars vars);
+t_vars		import_map(char **argv, t_vars vars);
+t_vars		set_null(t_vars vars);
+void		hook(t_vars *vars);
+t_player	search_player(t_vars *vars);
+void		movement_player(t_vars *vars, char c);
+int			close_window(t_vars *vars);
 
 //utils
-size_t	my_strnlen(const char *str);
-size_t	my_strchrlen(const char *s, int c);
+size_t		my_strnlen(const char *str);
+size_t		my_strchrlen(const char *s, int c);
 
 #endif

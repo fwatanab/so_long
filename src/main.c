@@ -6,13 +6,13 @@
 /*   By: fwatanab <fwatanab@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:24:18 by fwatanab          #+#    #+#             */
-/*   Updated: 2023/07/24 17:32:19 by fwatanab         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:06:37 by fwatanab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
-static t_vars	set_null(t_vars vars)
+t_vars	set_null(t_vars vars)
 {
 	int	tmp;
 	int	i;
@@ -62,7 +62,7 @@ static t_vars	map_size(char **argv)
 	return (vars);
 }
 
-static t_vars	import_map(char **argv, t_vars vars)
+t_vars	import_map(char **argv, t_vars vars)
 {
 	int		fd;
 	int		tmp;
@@ -98,11 +98,12 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		error();
 	vars = map_size(argv);
-	vars.mlx = mlx_init();
-	vars.mlx_win = mlx_new_window(vars.mlx, vars.map_x, vars.map_y, "so_long");
 	vars.c_count = checker_map(argv, vars);
+	map_search_all(argv, vars);
 	vars = import_map(argv, vars);
 	vars = set_null(vars);
+	vars.mlx = mlx_init();
+	vars.mlx_win = mlx_new_window(vars.mlx, vars.map_x, vars.map_y, "so_long");
 	create_map(vars);
 	hook(&vars);
 	mlx_loop(vars.mlx);

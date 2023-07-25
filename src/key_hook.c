@@ -9,24 +9,21 @@ int	close_window(t_vars *vars)
 
 static int	key_hook(int keycode, t_vars *vars)
 {
-	if (keycode == X_ESC)
+	if (keycode == ESC)
 		close_window(vars);
-	else if (keycode == 'w' || keycode == X_UP)
+	else if (keycode == W || keycode == UP)
 		movement_player(vars, 'w');
-	else if (keycode == 'a' || keycode == X_LEFT)
+	else if (keycode == A || keycode == LEFT)
 		movement_player(vars, 'a');
-	else if (keycode == 's' || keycode == X_DOWN)
+	else if (keycode == S || keycode == DOWN)
 		movement_player(vars, 's');
-	else if (keycode == 'd' || keycode == X_RIGHT)
+	else if (keycode == D || keycode == RIGHT)
 		movement_player(vars, 'd');
 	return (0);
 }
 void	hook(t_vars *vars)
 {
 	vars->walk_count = 0;
-	mlx_loop_hook(vars->mlx_win, key_hook, vars);
 	mlx_hook(vars->mlx_win, 2, 1L<<0, key_hook, vars);
 	mlx_hook(vars->mlx_win, 17, 1L<<0, close_window, vars);
-//	mlx_expose_hook(vars->mlx_win, create_map, vars);
-//	mlx_hook(vars->mlx_win, 25, 1L<<0, create_map, vars);
 }

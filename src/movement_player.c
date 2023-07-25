@@ -6,13 +6,13 @@
 /*   By: fwatanab <fwatanab@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 16:59:33 by fwatanab          #+#    #+#             */
-/*   Updated: 2023/07/24 19:07:08 by fwatanab         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:57:42 by fwatanab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
-static t_player	search_player(t_vars *vars)
+t_player	search_player(t_vars *vars)
 {
 	t_player	player;
 	int			tmp;
@@ -43,7 +43,10 @@ static int	check_move(t_vars *vars, int y, int x)
 		if (vars->c_count != 0 && vars->map[y][x] == 'E')
 			return (-1);
 		else if (vars->map[y][x] == 'E')
+		{
+			vars->map[y][x] = 'P';
 			return (1);
+		}
 		else if (vars->map[y][x] == 'C')
 			vars->c_count--;
 		vars->map[y][x] = 'P';
@@ -67,7 +70,7 @@ void	movement_player(t_vars *vars, char c)
 		r = check_move(vars, player.p_y + 1, player.p_x);
 	else if (c == 'd')
 		r = check_move(vars, player.p_y, player.p_x + 1);
-	if (r == 0)
+	if (r == 0 || r == 1)
 		vars->map[player.p_y][player.p_x] = '0';
 	create_map(*vars);
 	vars->walk_count++;

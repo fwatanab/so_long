@@ -74,7 +74,7 @@ void	movement_player(t_vars *vars, char c)
 	ft_printf("%d歩目\n", vars->walk_count);
 	if (r == 1)
 	{
-		ft_printf("game clear\n");
+		ft_printf("GAME CLEAR\n");
 		close_window(vars);
 	}
 }

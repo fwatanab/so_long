@@ -54,7 +54,7 @@ static void	put_map(t_vars vars, char *str, size_t k)
 	}
 }
 
-void	create_map(t_vars vars)
+int	create_map(t_vars vars)
 {
 	int		tmp;
 	size_t	i;
@@ -69,4 +69,5 @@ void	create_map(t_vars vars)
 		i++;
 		k += 40;
 	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fwatanab <fwatanab@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:28:00 by fwatanab          #+#    #+#             */
-/*   Updated: 2023/07/24 16:26:27 by fwatanab         ###   ########.fr       */
+/*   Updated: 2023/07/27 14:59:18 by fwatanab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,4 @@ int	checker_map(char **argv, t_vars vars)
 		error_map(fd);
 	close(fd);
 	return ((int)c_size);
-	vars.c_count = c_size;
 }

@@ -6,7 +6,7 @@
 /*   By: fwatanab <fwatanab@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 16:59:33 by fwatanab          #+#    #+#             */
-/*   Updated: 2023/07/25 16:57:42 by fwatanab         ###   ########.fr       */
+/*   Updated: 2023/07/27 15:25:42 by fwatanab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,12 @@ void	movement_player(t_vars *vars, char c)
 	else if (c == 'd')
 		r = check_move(vars, player.p_y, player.p_x + 1);
 	if (r == 0 || r == 1)
+	{
 		vars->map[player.p_y][player.p_x] = '0';
+		vars->walk_count++;
+		ft_printf("%d歩目\n", vars->walk_count);
+	}
 	create_map(*vars);
-	vars->walk_count++;
-	ft_printf("%d歩目\n", vars->walk_count);
 	if (r == 1)
 	{
 		ft_printf("GAME CLEAR\n");

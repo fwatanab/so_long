@@ -6,7 +6,7 @@
 /*   By: fwatanab <fwatanab@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:04:30 by fwatanab          #+#    #+#             */
-/*   Updated: 2023/07/20 19:01:15 by fwatanab         ###   ########.fr       */
+/*   Updated: 2023/07/27 15:01:36 by fwatanab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ size_t	my_strnlen(const char *str)
 	size = 0;
 	while (str[size] && str[size] != '\n')
 		size++;
-return (size);
+	return (size);
 }
 
 size_t	my_strchrlen(const char *s, int c)
@@ -45,4 +45,3 @@ size_t	my_strchrlen(const char *s, int c)
 		return (i - n_count);
 	return (0);
 }
-

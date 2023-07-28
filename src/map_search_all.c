@@ -6,11 +6,35 @@
 /*   By: fwatanab <fwatanab@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 16:01:27 by fwatanab          #+#    #+#             */
-/*   Updated: 2023/07/25 17:14:02 by fwatanab         ###   ########.fr       */
+/*   Updated: 2023/07/28 18:33:16 by fwatanab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
+
+static int	check(t_vars vars, int i, int j)
+{
+	if (i >= vars.map_y || j >= vars.map_x
+		|| vars.map[i][j] == WALL || vars.map[i][j] == PASSED)
+			return (0);
+	return (1);
+}
+
+static int	search(t_vars vars, int s_i, int s_j)
+{
+	t_cie	cie;
+	int		i;
+	int		j;
+
+	if (check(s_i, s_j) == 1)
+		return (1);
+	else
+		vars.map[s_i][s_j] = PASSED;
+	while (1)
+	{
+	}
+	return (0);
+}
 
 void	map_search_all(char **argv, t_vars vars)
 {
@@ -19,25 +43,6 @@ void	map_search_all(char **argv, t_vars vars)
 	vars = import_map(argv, vars);
 	vars = set_null(vars);
 	player = search_player(&vars);
-	while (vars.map[player.p_y][player.p_x] != '1')
-	{
-		if (vars.c_count == 0 && vars.map[player.p_y][player.p_x] == 'E')
-		{
-			all_free(vars.map);
-			return ;
-		}
-		else if (vars.map[player.p_y][player.p_x] == 'C')
-		{
-//			player.visited[player.p_y][player.p_x] = 1;
-			vars.c_count--;
-			player.p_y++;
-		}
-		else if (vars.map[player.p_y][player.p_x] != 'E')
-		{
-//			player.visited[player.p_y][player.p_x] = 1;
-			player.p_y++;
-		}
-	}
 	all_free(vars.map);
 //	error();
 }

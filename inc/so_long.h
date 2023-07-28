@@ -32,6 +32,19 @@
 # define S 1
 # define D 2
 
+//map search
+# define PATH '0'
+# define WALL '1'
+# define EXIT 'E'
+# define ITEM 'C'
+# define PASSED 'N'
+
+typedef struct s_cie
+{
+	int	x;
+	int	y;
+}	t_cie;
+
 typedef struct s_player
 {
 	int	p_x;
@@ -55,7 +68,6 @@ typedef struct s_vars
 	int		map_y;
 	int		c_count;
 	char	**map;
-	int		walk_count;
 }	t_vars;
 
 int			put_window(char **argv);

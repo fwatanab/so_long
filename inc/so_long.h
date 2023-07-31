@@ -45,6 +45,13 @@ typedef struct s_cie
 	int	y;
 }	t_cie;
 
+typedef struct s_stack
+{
+	int				head;
+	int				tail;
+	struct t_stack	data;
+}	t_stack;
+
 typedef struct s_player
 {
 	int	p_x;

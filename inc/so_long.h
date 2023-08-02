@@ -2,7 +2,6 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
 /*   By: fwatanab <fwatanab@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 20:53:21 by fwatanab          #+#    #+#             */
@@ -74,7 +73,6 @@ typedef struct s_vars
 	int		map_x;
 	int		map_y;
 	int		c_count;
-	int		p_count;
 	int		e_count;
 	char	**map;
 	int		walk_count;

@@ -1,7 +1,7 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "../libft/libft.h"
+# include "../libft/inc/libft.h"
 //# include "../minilibx/mlx.h"
 //# include "../minilibx/mlx_int.h"
 # include <mlx.h>
@@ -45,12 +45,12 @@ typedef struct s_cie
 	int	y;
 }	t_cie;
 
-typedef struct s_stack
-{
-	int				head;
-	int				tail;
-	struct t_stack	data;
-}	t_stack;
+//typedef struct s_stack
+//{
+//	int				head;
+//	int				tail;
+//	struct t_stack	data;
+//}	t_stack;
 
 typedef struct s_player
 {
@@ -75,6 +75,7 @@ typedef struct s_vars
 	int		map_y;
 	int		c_count;
 	char	**map;
+	int		walk_count;
 }	t_vars;
 
 int			put_window(char **argv);
@@ -83,7 +84,7 @@ void		error(void);
 void		error_map(int fd);
 void		all_free(char **str);
 int			checker_map(char **argv, t_vars vars);
-void		map_search_all(char **argv, t_vars vars);
+//void		map_search_all(char **argv, t_vars vars);
 t_vars		import_map(char **argv, t_vars vars);
 t_vars		set_null(t_vars vars);
 void		hook(t_vars *vars);

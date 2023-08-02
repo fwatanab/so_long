@@ -1,7 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fwatanab <fwatanab@student.42.jp>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/02 20:53:21 by fwatanab          #+#    #+#             */
+/*   Updated: 2023/08/02 21:08:06 by fwatanab         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
 # include "../libft/inc/libft.h"
+# include <stdbool.h>
 //# include "../minilibx/mlx.h"
 //# include "../minilibx/mlx_int.h"
 # include <mlx.h>
@@ -39,19 +52,6 @@
 # define ITEM 'C'
 # define PASSED 'N'
 
-typedef struct s_cie
-{
-	int	x;
-	int	y;
-}	t_cie;
-
-//typedef struct s_stack
-//{
-//	int				head;
-//	int				tail;
-//	struct t_stack	data;
-//}	t_stack;
-
 typedef struct s_player
 {
 	int	p_x;
@@ -74,17 +74,16 @@ typedef struct s_vars
 	int		map_x;
 	int		map_y;
 	int		c_count;
+	int		p_count;
+	int		e_count;
 	char	**map;
 	int		walk_count;
 }	t_vars;
 
 int			put_window(char **argv);
 int			create_map(t_vars vars);
-void		error(void);
-void		error_map(int fd);
-void		all_free(char **str);
 int			checker_map(char **argv, t_vars vars);
-//void		map_search_all(char **argv, t_vars vars);
+void		map_search_all(char **argv, t_vars vars);
 t_vars		import_map(char **argv, t_vars vars);
 t_vars		set_null(t_vars vars);
 void		hook(t_vars *vars);
@@ -95,5 +94,10 @@ int			close_window(t_vars *vars);
 //utils
 size_t		my_strnlen(const char *str);
 size_t		my_strchrlen(const char *s, int c);
+
+//error
+void		error(void);
+void		error_map(int fd);
+void		all_free(char **str);
 
 #endif

@@ -16,12 +16,12 @@ LIBFTNAME	= libft.a
 MLXDIR		= minilibx/
 MLXNAME		= libmlx.a
 
+all:$(NAME)
+
 $(NAME):$(OBJS)
 	$(MAKE) -C $(LIBFTDIR)
 #	$(MAKE) -C $(MLXDIR)
 	$(CC) $(CFLAGS) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME) $(OBJS) -L$(LIBFTDIR) -lft #-L$(MLXDIR) -lmlx $(MLXFRAGS)
-
-all:$(NAME)
 
 .c.o:
 	$(CC) $(CFLAGS) -Imlx -c $< -o $(<:.c=.o)

@@ -12,21 +12,21 @@
 
 #include "../inc/so_long.h"
 
-static bool	check_road(t_vars vars, int y, int x)
+static bool	check_road(t_vars *vars, int y, int x)
 {
-	if (vars.map[y][x] != '1' && vars.map[y][x] != 'N')
+	if (vars->map[y][x] != '1' && vars->map[y][x] != 'N')
 	{
-		if (vars.map[y][x] == 'E')
-			vars.e_count--;
-		if (vars.map[y][x] == 'C')
-			vars.c_count--;
-		vars.map[y][x] = 'N';
+		if (vars->map[y][x] == 'E')
+			vars->e_count--;
+		if (vars->map[y][x] == 'C')
+			vars->c_count--;
+		vars->map[y][x] = 'N';
 		return (true);
 	}
 	return (false);
 }
 
-static void	search(t_vars vars, int y, int x)
+static void	search(t_vars *vars, int y, int x)
 {
 	if (!check_road(vars, y, x))
 		return ;
@@ -44,12 +44,9 @@ void	map_search_all(char **argv, t_vars vars)
 	vars = set_null(vars);
 	player = search_player(&vars);
 	vars.e_count = 1;
-	search(vars, player.p_y, player.p_x);
-	if (vars.c_count == 0 && vars.e_count == 0)
-	{
-		all_free(vars.map);
-		return ;
-	}
+	search(&vars, player.p_y, player.p_x);
 	all_free(vars.map);
+	if (vars.c_count == 0 && vars.e_count == 0)
+		return ;
 	error();
 }

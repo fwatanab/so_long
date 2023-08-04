@@ -6,7 +6,7 @@
 /*   By: fwatanab <fwatanab@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 16:01:27 by fwatanab          #+#    #+#             */
-/*   Updated: 2023/08/04 19:27:54 by fwatanab         ###   ########.fr       */
+/*   Updated: 2023/08/02 22:09:29 by fwatanab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ static bool	check_road(t_vars *vars, int y, int x)
 	if (vars->map[y][x] != '1' && vars->map[y][x] != 'N')
 	{
 		if (vars->map[y][x] == 'E')
-		{
-			vars->e_count = 0;
-			return (false);
-		}
+			vars->e_count--;
 		if (vars->map[y][x] == 'C')
 			vars->c_count--;
 		vars->map[y][x] = 'N';

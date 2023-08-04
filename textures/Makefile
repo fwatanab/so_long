@@ -21,7 +21,7 @@ all:$(NAME)
 $(NAME):$(OBJS)
 	$(MAKE) -C $(LIBFTDIR)
 #	$(MAKE) -C $(MLXDIR)
-	$(CC) $(CFLAGS) -lmlx -framework OpenGL -framework AppKit -o $(NAME) $(OBJS) -L$(LIBFTDIR) -lft #-L$(MLXDIR) -lmlx $(MLXFRAGS)
+	$(CC) $(CFLAGS) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME) $(OBJS) -L$(LIBFTDIR) -lft #-L$(MLXDIR) -lmlx $(MLXFRAGS)
 
 .c.o:
 	$(CC) $(CFLAGS) -Imlx -c $< -o $(<:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: fwatanab <fwatanab@student.42.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 13:48:08 by fwatanab          #+#    #+#             */
-/*   Updated: 2023/08/04 19:31:31 by fwatanab         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:48:10 by fwatanab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@
 # define A 0
 # define S 1
 # define D 2
+
+//map search
+# define PATH '0'
+# define WALL '1'
+# define EXIT 'E'
+# define ITEM 'C'
+# define PASSED 'N'
 
 typedef struct s_player
 {

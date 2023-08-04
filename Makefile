@@ -42,5 +42,4 @@ fclean: clean
 	$(MAKE) -C $(LIBFTDIR) fclean
 #	$(MAKE) -C $(MLXDIR) fclean
 
-
 re: fclean all

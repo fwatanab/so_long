@@ -37,7 +37,7 @@ clean:
 	$(MAKE) -C $(LIBFTDIR) clean
 #	$(MAKE) -C $(MLXDIR) clean
 
-fclean: clean
+fclean:
 	$(RM) $(NAME)
 	$(MAKE) -C $(LIBFTDIR) fclean
 #	$(MAKE) -C $(MLXDIR) fclean
